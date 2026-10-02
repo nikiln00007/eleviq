@@ -1,0 +1,48 @@
+/* NOTE: Team profiles with professional portrait images. You can replace image paths with your own photos in public/. */
+export const team = [
+  {
+    id: 1,
+    name: 'Aarav Sharma',
+    role: 'Founder & CEO',
+    bio: 'Leads product strategy and helps businesses identify high-impact opportunities for AI and automation.',
+    color: '#4F73E8',
+    initials: 'AS',
+    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80&auto=format&fit=crop&crop=faces',
+  },
+  {
+    id: 2,
+    name: 'Maya Patel',
+    role: 'Head of AI',
+    bio: 'Focuses on AI systems, LLM applications, intelligent agents, and machine learning infrastructure.',
+    color: '#6C8EF5',
+    initials: 'MP',
+    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&q=80&auto=format&fit=crop&crop=faces',
+  },
+  {
+    id: 3,
+    name: 'Rohan Mehta',
+    role: 'Lead Engineer',
+    bio: 'Builds scalable backend systems, APIs, cloud infrastructure, and production software.',
+    color: '#3A5BD4',
+    initials: 'RM',
+    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=600&q=80&auto=format&fit=crop&crop=faces',
+  },
+  {
+    id: 4,
+    name: 'Ananya Reddy',
+    role: 'Design Lead',
+    bio: 'Crafts intuitive product interfaces and design systems that balance aesthetics with usability.',
+    color: '#7C5CE0',
+    initials: 'AR',
+    image: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=600&q=80&auto=format&fit=crop&crop=faces',
+  },
+  {
+    id: 5,
+    name: 'Vikram Iyer',
+    role: 'Data Engineer',
+    bio: 'Architects data pipelines, analytics dashboards, and real-time reporting infrastructure.',
+    color: '#2E7D5B',
+    initials: 'VI',
+    image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=600&q=80&auto=format&fit=crop&crop=faces',
+  },
+]

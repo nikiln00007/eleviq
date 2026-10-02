@@ -1,0 +1,58 @@
+export const caseStudies = [
+  {
+    id: 1,
+    num: '01',
+    category: 'AI AUTOMATION',
+    title: 'AI Customer Support Platform',
+    description: 'An intelligent support platform that automatically classifies customer requests, retrieves relevant information, and assists support teams with context-aware responses.',
+    metrics: [
+      { value: '45%', label: 'Faster response time' },
+      { value: '60%', label: 'Less manual triage' },
+      { value: '24/7', label: 'AI-assisted support' },
+    ],
+    technologies: ['OpenAI', 'Next.js', 'FastAPI', 'PostgreSQL'],
+    color: '#4F73E8',
+  },
+  {
+    id: 2,
+    num: '02',
+    category: 'DATA & ANALYTICS',
+    title: 'Smart Business Dashboard',
+    description: 'A real-time analytics dashboard that aggregates operational data from multiple sources, providing actionable insights and automated alerts for decision-makers.',
+    metrics: [
+      { value: '3x', label: 'Faster reporting' },
+      { value: '12+', label: 'Data integrations' },
+      { value: '85%', label: 'Adoption rate' },
+    ],
+    technologies: ['React', 'Python', 'PostgreSQL', 'AWS'],
+    color: '#6C8EF5',
+  },
+  {
+    id: 3,
+    num: '03',
+    category: 'AUTOMATION',
+    title: 'Workflow Automation Platform',
+    description: 'An end-to-end workflow automation system that connects disparate business tools and eliminates manual data entry across departments.',
+    metrics: [
+      { value: '80+', label: 'Workflows automated' },
+      { value: '92%', label: 'Error reduction' },
+      { value: '150h', label: 'Monthly savings' },
+    ],
+    technologies: ['n8n', 'Node.js', 'Supabase', 'Docker'],
+    color: '#3A5BD4',
+  },
+  {
+    id: 4,
+    num: '04',
+    category: 'AI ENGINEERING',
+    title: 'AI Document Intelligence',
+    description: 'An intelligent document processing system that extracts, classifies, and structures information from unstructured documents using custom AI models.',
+    metrics: [
+      { value: '95%', label: 'Extraction accuracy' },
+      { value: '10x', label: 'Faster processing' },
+      { value: '50K+', label: 'Documents processed' },
+    ],
+    technologies: ['OpenAI', 'FastAPI', 'Python', 'AWS'],
+    color: '#7C5CE0',
+  },
+]

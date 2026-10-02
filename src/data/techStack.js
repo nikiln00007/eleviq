@@ -1,0 +1,17 @@
+export const techStack = [
+  { id: '01', name: 'OpenAI' },
+  { id: '02', name: 'Google Gemini' },
+  { id: '03', name: 'Python' },
+  { id: '04', name: 'FastAPI' },
+  { id: '05', name: 'React' },
+  { id: '06', name: 'Next.js' },
+  { id: '07', name: 'Node.js' },
+  { id: '08', name: 'PostgreSQL' },
+  { id: '09', name: 'Supabase' },
+  { id: '10', name: 'n8n' },
+  { id: '11', name: 'Make' },
+  { id: '12', name: 'Zapier' },
+  { id: '13', name: 'AWS' },
+  { id: '14', name: 'Docker' },
+  { id: '15', name: 'TypeScript' },
+]
