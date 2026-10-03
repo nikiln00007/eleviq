@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { motion } from 'framer-motion'
-import { Mail, Phone, MapPin, Clock, Send, Loader2 } from 'lucide-react'
+import { Mail, Phone, MapPin, Clock, Send, Loader2, AlertCircle } from 'lucide-react'
 import SectionHeading from './SectionHeading'
+import { validateForm, submitRsvp } from '../services/rsvpService'
 
 const SERVICE_OPTIONS = [
   'AI Engineering',
@@ -28,32 +29,40 @@ export default function Contact() {
   })
   const [errors, setErrors] = useState({})
   const [status, setStatus] = useState('idle') // idle | loading | success | error
-
-  const validate = () => {
-    const errs = {}
-    if (!form.name.trim()) errs.name = 'Full name is required'
-    if (!form.email.trim()) errs.email = 'Email is required'
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) errs.email = 'Enter a valid email'
-    if (!form.service) errs.service = 'Please select a service'
-    if (!form.description.trim()) errs.description = 'Project description is required'
-    return errs
-  }
+  const [submitError, setSubmitError] = useState('')
+  const isSubmittingRef = useRef(false)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const errs = validate()
+
+    // Prevent duplicate concurrent submissions
+    if (isSubmittingRef.current || status === 'loading') return
+
+    const errs = validateForm(form)
     setErrors(errs)
     if (Object.keys(errs).length > 0) return
 
+    isSubmittingRef.current = true
     setStatus('loading')
-    /* Mock submit — replace with real API call */
-    await new Promise((r) => setTimeout(r, 1500))
-    setStatus('success')
+    setSubmitError('')
+
+    try {
+      await submitRsvp(form)
+      setStatus('success')
+    } catch (err) {
+      setStatus('error')
+      setSubmitError(
+        err.message || 'We were unable to record your RSVP right now. Please try again.'
+      )
+    } finally {
+      isSubmittingRef.current = false
+    }
   }
 
   const handleChange = (field) => (e) => {
     setForm((f) => ({ ...f, [field]: e.target.value }))
     if (errors[field]) setErrors((errs) => ({ ...errs, [field]: undefined }))
+    if (submitError) setSubmitError('')
   }
 
   const inputClass = (field) =>
@@ -75,7 +84,11 @@ export default function Contact() {
           <h3 className="text-2xl font-bold text-dark">Message Sent!</h3>
           <p className="mt-3 text-body/55">We&apos;ll get back to you within one business day.</p>
           <button
-            onClick={() => { setStatus('idle'); setForm({ name: '', company: '', email: '', phone: '', service: '', budget: '', timeline: '', description: '' }) }}
+            onClick={() => {
+              setStatus('idle')
+              setSubmitError('')
+              setForm({ name: '', company: '', email: '', phone: '', service: '', budget: '', timeline: '', description: '' })
+            }}
             className="mt-6 px-5 py-2.5 bg-primary text-white text-sm font-semibold rounded-xl hover:bg-primary-dark transition-colors"
           >
             Send Another Message
@@ -167,13 +180,26 @@ export default function Contact() {
               </div>
             </div>
 
+            {submitError && (
+              <div
+                role="alert"
+                className="mt-5 p-4 rounded-xl border border-red-200 bg-red-50/80 text-red-700 text-sm flex items-start gap-3"
+              >
+                <AlertCircle size={18} className="shrink-0 mt-0.5 text-red-500" />
+                <div className="flex-1">
+                  <p className="font-semibold text-red-900 text-xs uppercase tracking-wider">Submission Error</p>
+                  <p className="text-xs text-red-700/90 mt-1 leading-relaxed">{submitError}</p>
+                </div>
+              </div>
+            )}
+
             <button
               type="submit"
               disabled={status === 'loading'}
-              className="mt-6 w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-primary text-white text-sm font-semibold rounded-xl hover:bg-primary-dark transition-colors disabled:opacity-60 group"
+              className="mt-6 w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-primary text-white text-sm font-semibold rounded-xl hover:bg-primary-dark transition-colors disabled:opacity-60 cursor-pointer disabled:cursor-not-allowed group"
             >
               {status === 'loading' ? (
-                <><Loader2 size={16} className="animate-spin" /> Sending...</>
+                <><Loader2 size={16} className="animate-spin" /> Submitting...</>
               ) : (
                 <>Send Project Request <Send size={14} className="transition-transform group-hover:translate-x-0.5" /></>
               )}

@@ -4,38 +4,38 @@ import SectionHeading from './SectionHeading'
 const phases = [
   {
     num: '/01',
-    phaseLabel: 'PHASE 01 — ARCHITECTURE & DATA AUDIT',
-    title: 'Cognitive Strategy & Data Auditing',
+    phaseLabel: 'PHASE 01',
+    title: 'Discovery & Strategy',
     description:
-      'We evaluate your current enterprise data schemas, security constraints, and operational bottlenecks to define exact model requirements and ROI benchmarks.',
-    checks: ['Data Pipeline Readiness Audit', 'Custom LLM Specs', 'SOC2 Security Plan'],
+      'We understand your business, workflows, users, technical environment, and desired outcomes.',
+    checks: ['Business Analysis', 'Workflow Audit', 'Technical Discovery'],
     icon: '/icon-01.png',
   },
   {
     num: '/02',
-    phaseLabel: 'PHASE 02 — MODEL ENGINEERING & FINE-TUNING',
-    title: 'Neural Fine-Tuning & Swarm Engineering',
+    phaseLabel: 'PHASE 02',
+    title: 'Design & Engineering',
     description:
-      'Our research team trains domain-adapted neural networks, fine-tunes LLMs on your proprietary data, and constructs resilient RAG vector search pipelines.',
-    checks: ['Domain-Adapted Model Checkpoints', 'Vector Index Sync', 'Human-In-The-Loop UI'],
+      'We design the product architecture and build the core AI and software systems.',
+    checks: ['UX/UI Design', 'System Architecture', 'AI Engineering'],
     icon: '/icon-02.png',
   },
   {
     num: '/03',
-    phaseLabel: 'PHASE 03 — INTEGRATION & STAGING TEST',
-    title: 'Zero-Downtime Microservice Orchestration',
+    phaseLabel: 'PHASE 03',
+    title: 'Integration & Testing',
     description:
-      'We integrate the AI engine into your existing ERP/CRM via high-throughput REST/gRPC API microservices with fail-safe fallback circuits.',
-    checks: ['Sub-500ms API Endpoints', 'Automated Test Suite', 'Real-Time Telemetry Dashboard'],
+      'We connect the system with your existing technology stack and validate performance.',
+    checks: ['API Integration', 'Automated Testing', 'Security Testing'],
     icon: '/icon-03.png',
   },
   {
     num: '/04',
-    phaseLabel: 'PHASE 04 — DEPLOYMENT & SLM MONITORING',
-    title: 'Autonomous Scaling & Continuous Optimization',
+    phaseLabel: 'PHASE 04',
+    title: 'Launch & Optimization',
     description:
-      'Post-deployment, our automated telemetry system tracks model precision drift, cost efficiency, and latency while executing automated model retraining loops.',
-    checks: ['Automated Drift Detection', 'Monthly Tuning Reports', '24/7 Enterprise SLA Support'],
+      'We deploy, monitor, measure, and continuously improve the system.',
+    checks: ['Cloud Deployment', 'Monitoring', 'Performance Optimization'],
     icon: '/icon-04.png',
   },
 ]
