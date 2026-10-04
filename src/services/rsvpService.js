@@ -4,11 +4,7 @@
  */
 
 const SCRIPT_URL =
-  typeof import.meta !== 'undefined' && import.meta.env?.VITE_GOOGLE_SCRIPT_URL
-    ? import.meta.env.VITE_GOOGLE_SCRIPT_URL
-    : typeof process !== 'undefined' && process.env?.VITE_GOOGLE_SCRIPT_URL
-      ? process.env.VITE_GOOGLE_SCRIPT_URL
-      : ''
+  'https://script.google.com/macros/s/AKfycbzKflvZYxnwr8CrKXh2aqfeJmXjAAAJBODWB0eVKHXr_HTZFHw-6NRfiofHJqoKhSpPzA/exec'
 
 // Reasonable length limits
 export const FIELD_LIMITS = {
@@ -81,9 +77,7 @@ function sanitizeInput(val) {
  */
 export async function submitRsvp(formData) {
   if (!SCRIPT_URL) {
-    throw new Error(
-      'Google Apps Script endpoint is not configured. Please set VITE_GOOGLE_SCRIPT_URL in your .env file.'
-    )
+    throw new Error('Submission failed. Please try again later.')
   }
 
   const payload = {
@@ -118,7 +112,7 @@ export async function submitRsvp(formData) {
     clearTimeout(timeoutId)
 
     if (!response.ok) {
-      throw new Error(`Submission failed with status: ${response.status}`)
+      throw new Error('Submission failed. Please try again later.')
     }
 
     const result = await response.json()
@@ -126,20 +120,18 @@ export async function submitRsvp(formData) {
     if (result && result.success) {
       return result
     } else {
-      throw new Error(result?.error || 'Unable to record RSVP in Google Sheets.')
+      throw new Error('Submission failed. Please try again later.')
     }
   } catch (err) {
     clearTimeout(timeoutId)
 
     if (err.name === 'AbortError') {
-      throw new Error('The request timed out. Please check your internet connection and try again.')
+      throw new Error('Submission timed out. Please check your connection and try again.')
     }
 
     // Network errors (e.g. offline, CORS blocked, DNS failure)
     if (err instanceof TypeError && err.message === 'Failed to fetch') {
-      throw new Error(
-        'Unable to reach the submission server. Please verify your internet connection or check the endpoint URL.'
-      )
+      throw new Error('Submission failed. Please check your connection and try again.')
     }
 
     throw err

@@ -6,7 +6,6 @@ import Services from './components/Services'
 import Process from './components/Process'
 import Team from './components/Team'
 import CaseStudies from './components/CaseStudies'
-import Testimonials from './components/Testimonials'
 import FAQ from './components/FAQ'
 import CTA from './components/CTA'
 import Contact from './components/Contact'
@@ -28,7 +27,6 @@ export default function App() {
           <Process />
           <Team />
           <CaseStudies />
-          <Testimonials />
           <FAQ />
           <CTA />
           <Contact />

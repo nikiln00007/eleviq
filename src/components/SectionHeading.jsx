@@ -31,7 +31,7 @@ export default function SectionHeading({ label, title, description, center = tru
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className={`mt-5 text-[clamp(0.95rem,1.2vw,1.125rem)] leading-relaxed ${
+          className={`mt-8 text-[clamp(0.95rem,1.2vw,1.125rem)] leading-relaxed ${
             light ? 'text-white/70' : 'text-body/60'
           }`}
         >

@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
-import { ArrowUp, Mail, ArrowUpRight } from 'lucide-react'
-import { LinkedInIcon, GitHubIcon, TwitterIcon } from './Icons'
+import { ArrowUp, ArrowUpRight } from 'lucide-react'
+import { LinkedInIcon, InstagramIcon, TwitterIcon } from './Icons'
 
 const FOOTER_LINKS = {
   solutions: [
@@ -52,16 +52,16 @@ export default function Footer() {
             {/* Social Icons */}
             <div className="flex items-center gap-3 pt-2">
               <a
-                href="https://github.com"
+                href="https://www.instagram.com/eleviq__tech"
                 target="_blank"
                 rel="noreferrer"
                 className="w-9 h-9 rounded-xl border border-white/10 flex items-center justify-center text-white/60 hover:text-white hover:border-white/30 hover:bg-white/5 transition-all"
-                aria-label="GitHub"
+                aria-label="Instagram"
               >
-                <GitHubIcon size={16} />
+                <InstagramIcon size={16} />
               </a>
               <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/in/nikil-n-12739636b"
                 target="_blank"
                 rel="noreferrer"
                 className="w-9 h-9 rounded-xl border border-white/10 flex items-center justify-center text-white/60 hover:text-white hover:border-white/30 hover:bg-white/5 transition-all"
@@ -70,20 +70,13 @@ export default function Footer() {
                 <LinkedInIcon size={16} />
               </a>
               <a
-                href="https://twitter.com"
+                href="https://x.com/eleviq__tech"
                 target="_blank"
                 rel="noreferrer"
                 className="w-9 h-9 rounded-xl border border-white/10 flex items-center justify-center text-white/60 hover:text-white hover:border-white/30 hover:bg-white/5 transition-all"
                 aria-label="Twitter / X"
               >
                 <TwitterIcon size={16} />
-              </a>
-              <a
-                href="mailto:hello@eleviq.com"
-                className="w-9 h-9 rounded-xl border border-white/10 flex items-center justify-center text-white/60 hover:text-white hover:border-white/30 hover:bg-white/5 transition-all"
-                aria-label="Email"
-              >
-                <Mail size={16} />
               </a>
             </div>
           </div>
