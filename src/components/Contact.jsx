@@ -16,8 +16,8 @@ const SERVICE_OPTIONS = [
 ]
 
 const infoCards = [
-  { Icon: Mail, label: 'Email', value: 'hello@eleviq.com' },
-  { Icon: Phone, label: 'Phone', value: '+91 90000 00000' },
+  { Icon: Mail, label: 'Email', value: 'info@eleviq.com' },
+  { Icon: Phone, label: 'Phone', value: '+91 87780 14893' },
   { Icon: MapPin, label: 'Location', value: 'India' },
   { Icon: Clock, label: 'Response time', value: 'Usually within 1 business day' },
 ]
@@ -167,7 +167,7 @@ export default function Contact() {
               </div>
               <div>
                 <label htmlFor="budget" className="block text-xs font-semibold text-body/50 mb-1.5">Project Budget</label>
-                <input id="budget" type="text" value={form.budget} onChange={handleChange('budget')} className={inputClass('budget')} placeholder="e.g. $5,000 – $15,000" />
+                <input id="budget" type="text" value={form.budget} onChange={handleChange('budget')} className={inputClass('budget')} placeholder="e.g. ₹10k – ₹15k" />
               </div>
               <div className="sm:col-span-2">
                 <label htmlFor="timeline" className="block text-xs font-semibold text-body/50 mb-1.5">Project Timeline</label>

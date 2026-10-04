@@ -4,9 +4,88 @@ import { LinkedInIcon } from './Icons'
 import { team } from '../data/team'
 import SectionHeading from './SectionHeading'
 
+/* ─── Magnetic Image ───────────────────────────────────────────────── */
+function MagneticImage({ src, alt, member }) {
+  const zoneRef    = useRef(null)  // outer: mouse-event zone, NO overflow clip
+  const imgBoxRef  = useRef(null)  // inner: moves with magnetic transform
+  const rafRef     = useRef(null)
+  const targetRef  = useRef({ x: 0, y: 0 })
+  const currentRef = useRef({ x: 0, y: 0 })
+
+  const STRENGTH = 14   // max px the image shifts
+  const EASE     = 0.08 // spring factor — lower = floatier
+
+  useEffect(() => {
+    const animate = () => {
+      const c = currentRef.current
+      const t = targetRef.current
+      c.x += (t.x - c.x) * EASE
+      c.y += (t.y - c.y) * EASE
+      if (imgBoxRef.current) {
+        imgBoxRef.current.style.transform = `translate(${c.x.toFixed(2)}px, ${c.y.toFixed(2)}px)`
+      }
+      rafRef.current = requestAnimationFrame(animate)
+    }
+    rafRef.current = requestAnimationFrame(animate)
+    return () => cancelAnimationFrame(rafRef.current)
+  }, [])
+
+  const handleMove = (e) => {
+    const rect = zoneRef.current?.getBoundingClientRect()
+    if (!rect) return
+    const cx = rect.left + rect.width  / 2
+    const cy = rect.top  + rect.height / 2
+    const dx = (e.clientX - cx) / (rect.width  / 2)
+    const dy = (e.clientY - cy) / (rect.height / 2)
+    targetRef.current = { x: dx * STRENGTH, y: dy * STRENGTH }
+  }
+
+  const handleLeave = () => {
+    targetRef.current = { x: 0, y: 0 }
+  }
+
+  return (
+    <div
+      ref={zoneRef}
+      className="w-full sm:w-[240px] md:w-[270px] h-[260px] sm:h-[300px] md:h-[330px] shrink-0 relative"
+      onMouseMove={handleMove}
+      onMouseLeave={handleLeave}
+    >
+      {/* Inner box: moves via transform, has overflow-hidden + rounded corners */}
+      <div
+        ref={imgBoxRef}
+        className="w-full h-full rounded-2xl overflow-hidden bg-slate-50 border border-slate-100"
+        style={{ willChange: 'transform' }}
+      >
+        {src ? (
+          <img
+            src={src}
+            alt={alt}
+            className="w-full h-full object-cover object-top select-none pointer-events-none"
+            loading="eager"
+            onError={(e) => {
+              e.currentTarget.style.display = 'none'
+              const fb = e.currentTarget.parentElement?.querySelector('.avatar-fallback')
+              if (fb) fb.classList.remove('hidden')
+            }}
+          />
+        ) : null}
+        <div
+          className={`avatar-fallback w-full h-full ${
+            src ? 'hidden' : 'flex'
+          } items-center justify-center text-white text-4xl font-bold`}
+          style={{ background: `linear-gradient(135deg, ${member.color || '#2563EB'}, #1E40AF)` }}
+        >
+          {member.initials || member.name[0]}
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export default function Team() {
   const total = team.length
-  const SPEED = 1.50 // px per frame
+  const SPEED = 1.25 // px per frame
 
   const [activeIndex, setActiveIndex]   = useState(0)
   const [isPaused, setIsPaused]         = useState(false)
@@ -237,36 +316,18 @@ export default function Team() {
                       }`}
                     >
                       <div className="flex flex-col sm:flex-row items-center sm:items-stretch gap-6 md:gap-8">
-                        {/* Portrait Photo Column */}
-                        <div className="w-full sm:w-[240px] md:w-[270px] h-[260px] sm:h-[300px] md:h-[330px] shrink-0 rounded-2xl overflow-hidden bg-slate-50 border border-slate-100 relative group/img">
-                          {member.image ? (
-                            <img
-                              src={member.image}
-                              alt={`${member.name}, ${member.role}`}
-                              className="w-full h-full object-cover object-top transition-transform duration-700 group-hover/img:scale-105 select-none pointer-events-none"
-                              loading="eager"
-                              onError={(e) => {
-                                e.currentTarget.style.display = 'none'
-                                const fb = e.currentTarget.parentElement?.querySelector('.avatar-fallback')
-                                if (fb) fb.classList.remove('hidden')
-                              }}
-                            />
-                          ) : null}
-                          <div
-                            className={`avatar-fallback w-full h-full ${
-                              member.image ? 'hidden' : 'flex'
-                            } items-center justify-center text-white text-4xl font-bold`}
-                            style={{ background: `linear-gradient(135deg, ${member.color || '#2563EB'}, #1E40AF)` }}
-                          >
-                            {member.initials || member.name[0]}
-                          </div>
-                        </div>
+                        {/* Portrait Photo Column — Magnetic */}
+                        <MagneticImage
+                          src={member.image}
+                          alt={`${member.name}, ${member.role}`}
+                          member={member}
+                        />
 
                         {/* Content Column */}
                         <div className="flex flex-col justify-between py-1 md:py-2 text-left flex-1 min-w-0">
                           <div>
                             {/* Role Label */}
-                            <span className="text-[11px] font-extrabold uppercase tracking-[1.5px] text-[#2563EB] font-mono">
+                            <span className="text-[13px] font-extrabold uppercase tracking-[1.5px] text-[#2563EB] font-mono">
                               {member.role}
                             </span>
 
